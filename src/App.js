@@ -2,9 +2,11 @@ import React from 'react';
 
 import { 
     Paper,
-    makeStyles,
-    Typography, 
+    makeStyles, 
 } from '@material-ui/core';
+
+import Header from './Generic/Header';
+import Headline from './Pages/Headline';
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -23,7 +25,8 @@ export default function App(props) {
                 height: "100vh"
             }}
         >
-            <Typography variant="h1">Hello World</Typography>
+            <Header />
+            <Headline />
         </Paper>
     );
 }
