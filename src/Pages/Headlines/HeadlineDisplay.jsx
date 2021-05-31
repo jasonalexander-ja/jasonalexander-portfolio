@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     image: {
         width: '100%', 
         height: '40vh', 
-        opacity: 0.5, 
+        opacity: 0.3, 
     },
     textArea: { 
         position: 'absolute', 

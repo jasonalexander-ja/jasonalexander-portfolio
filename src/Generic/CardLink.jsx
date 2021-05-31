@@ -6,7 +6,8 @@ import {
     CardMedia,
     Typography,
     Grid, 
-    makeStyles,
+    makeStyles, 
+    CardActionArea, 
 } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-start',
     },
     cardMedia: {
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '56.25%', 
     },
     cardContent: {
         flexGrow: 1,
@@ -40,11 +41,13 @@ const CardLink = (props) => {
             xl={largeItem ? 4 : 2}
         >
             <Card className={classes.card}>
-                <CardMedia 
-                    className={classes.cardMedia}
-                    image={props.imgSrc}
-                    title={props.title}
-                />
+                <CardActionArea>
+                    <CardMedia 
+                        className={classes.cardMedia}
+                        image={props.imgSrc}
+                        title={props.title}
+                    />
+                </CardActionArea>
                 <CardContent className={classes.cardContent}>
                     <Typography 
                         gutterBottom 

@@ -47,8 +47,8 @@ const makePageContent = data => {
     else 
         return data.map((record, iter) => (
             <CardLink 
-                {...record}
-                key={`frontpage-item-${iter}`}
+                {...record} 
+                key={`frontpage-item-${iter}`} 
             />
         ));
 }
