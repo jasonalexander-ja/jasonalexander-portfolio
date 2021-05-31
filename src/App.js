@@ -1,32 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { 
-    Paper,
-    makeStyles, 
+    CssBaseline, 
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 
-import Header from './Generic/Header';
-import Headline from './Pages/Headline';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import OptionsBottom from './Components/OptionsBottom';
+import Content from './Content';
 
-const useStyles = makeStyles(theme => ({
-    background: {
-        color: "white"
-    }
-}));
 
-export default function App(props) {
-    const classes = useStyles();
+const App = (props) => {
+    const theme = useTheme();
+    const isSM = window.innerWidth < theme.breakpoints.values.md;
+    const [drawOpen, changeDraw] = useState({
+        open:  !isSM, 
+        anchor: isSM ? 'bottom' : 'top', 
+    });
+
+    const toggleDraw = (anchor) => 
+        changeDraw({anchor: anchor, open: !drawOpen.open}); 
 
     return (
-        <Paper
-            square={true}
-            className={classes.background}
-            style={{
-                height: "100vh"
-            }}
-        >
-            <Header />
-            <Headline />
-        </Paper>
+        <>
+            <CssBaseline />
+            <Header 
+                toggleDraw={toggleDraw}
+            />
+            <Content 
+                drawOpen={drawOpen}
+                changeDraw={changeDraw}
+            />
+            <Footer 
+                toggleDraw={toggleDraw}
+            />
+            <OptionsBottom
+                open={drawOpen}
+                toggleDraw={toggleDraw}
+            />
+        </>
     );
 }
+
+export default App;

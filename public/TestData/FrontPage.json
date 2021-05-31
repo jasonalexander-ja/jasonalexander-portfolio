@@ -3,7 +3,76 @@
         {
             "imgSrc": "https://i.ibb.co/cJP85Tw/Nottinghack-2.jpg",
             "title": "CPU Build at Nottingham Hackspace",
-            "preview": "A project to build a fully working computer on breadboards using only parts and tools at Nottingham Hackapce"
+            "preview": "A project to build a fully working computer on breadboards using only parts and tools at Nottingham Hackapce",
+            "largeItem": true
+        },
+        {
+            "imgSrc": "https://i.ibb.co/KD2g62r/Am-Rad-Ant.jpg",
+            "title": "Experimenting with VHF",
+            "preview": "1 broomstick, 4m of coax, 1 attick = RF fun"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/RzRS839/CPet.png",
+            "title": "A Good (computer) Vet",
+            "preview": "Restoring Nottingham Hackspace's long moth balled Commodore Pet"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/mc4TmR3/CPet-Wireless-Keyboard2.jpg",
+            "title": "Extreme Retrofitting",
+            "preview": "Creating a wireless keyboard for the Commodore Pet, bringing it closer to 21st centuary luxuries"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/vzVPs5g/CPU1.jpg",
+            "title": "A MacGyver Architecture",
+            "preview": "Creating a working CPU from 74/4000 series chips, all from my draw"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/bFy6Fb2/NH-CPU.jpg",
+            "title": "Nottinghack CPU - Moving Foreward",
+            "preview": "Further developments and changes to the Nottinghack CPU"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/3Y7ZF0D/Freddo.jpg",
+            "title": "The Cost of a Freddo",
+            "preview": "A historical, international index just for the cost of a Freddo, for under £4 a month"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/qnB8cCn/EEPROM-Burner.jpg",
+            "title": "Impromptu EEPROM Programmer",
+            "preview": "Quickly creating an EEPROM reader/burner quickly for a restoration",
+            "largeItem": true
+        },
+        {
+            "imgSrc": "https://i.ibb.co/P626x7f/Mech-Calculator.jpg",
+            "title": "Adding Up the Past",
+            "preview": "Going into detail of the once common pin-wheel mechanical calculator"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/hgnxRXp/NH-Empty.jpg",
+            "title": "A Ghost Space",
+            "preview": "Heading into Nottingham Hackspace today during the pandemic"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/cXT5F9X/Office-2-1.jpg",
+            "title": "Further Changes",
+            "preview": "A year in, things I have learned and things I have changed from now becomming permanent WFH",
+            "largeItem": true
+        },
+        {
+            "imgSrc": "https://i.ibb.co/dcjsBsm/Office1.jpg",
+            "title": "A Change of Desk",
+            "preview": "My experience moving into my home at the start of the COVID-19 pandemic"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/ryyv0PQ/RPi-Nano.png",
+            "title": "The New Platform",
+            "preview": "Early experiments with the new Raspberry Pi Nano, and initial thoughts"
+        },
+        {
+            "imgSrc": "https://i.ibb.co/GJzLSB2/vCPU.jpg",
+            "title": "Breaking a Record",
+            "preview": "Creating the only 64 bit simulation of a CPU in Minecraft using redstone NOR gates",
+            "largeItem": true
         }
     ]
 }

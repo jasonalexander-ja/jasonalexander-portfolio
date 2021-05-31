@@ -1,21 +1,28 @@
 import React, { useState } from 'react'; 
 
 import { 
+    Divider,
     Grid, 
     makeStyles,
     Typography, 
 } from '@material-ui/core'; 
 
-import LineItem from '../Generic/LineItem';
+import HeadlineDisplay from './HeadlineDisplay';
+
+import CardLink from '../../Generic/CardLink';
 
 import {
     dev
-} from '../helper';
+} from '../../helper';
 
 const useStyles = makeStyles(theme => ({
     content: {
-        padding: 10
+        padding: 0
     },
+    divider: {
+        marginTop: 5,
+        marginBottom: 5,
+    }
 }));
 
 const getFrontPageData = async stateSetter => {
@@ -39,7 +46,7 @@ const makePageContent = data => {
         );
     else 
         return data.map((record, iter) => (
-            <LineItem 
+            <CardLink 
                 {...record}
                 key={`frontpage-item-${iter}`}
             />
@@ -53,8 +60,6 @@ const Headline = () => {
         pageData: []
     });
 
-    const hasContent = pageState.pageData.length > 0;
-
     if(!pageState.hasLoaded)
         getFrontPageData(setPageState);
 
@@ -62,13 +67,27 @@ const Headline = () => {
 
     return (
         <Grid item container className={classes.content}>
-            <Grid item xs={false} sm={2} />
-            <Grid item xs={12} sm={8}>
-                <Grid container item spacing={3} justify={`${hasContent ? 'flex-start' : 'center'}`}>
+            <Grid item container xs={12}>
+                <Grid item lg={1} xs={false} />
+                <HeadlineDisplay />
+                <Grid item lg={1} xs={false} />
+            </Grid>
+            <Grid item xs={false} lg={2} />
+            <Grid container item xs={12} lg={8} justify="center">
+                <Grid 
+                    container 
+                    item xs={12} 
+                    spacing={1} 
+                    justify="center" 
+                    alignItems="stretch"
+                >
+                    <Grid item xs={12}>
+                        <Divider className={classes.divider} />
+                    </Grid>
                     {content}
                 </Grid>
             </Grid>
-            <Grid item xs={false} sm={2} />
+            <Grid item xs={false} lg={2} />
         </Grid>
     );
 }
