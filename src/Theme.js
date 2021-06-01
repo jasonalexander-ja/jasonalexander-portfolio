@@ -4,7 +4,7 @@ import {
 
 import { 
     blueGrey,
-    teal
+    teal, 
 } from '@material-ui/core/colors'; 
 
 const darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ?
