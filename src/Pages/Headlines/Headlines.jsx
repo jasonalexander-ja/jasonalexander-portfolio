@@ -39,26 +39,28 @@ const getFrontPageData = async stateSetter => {
     });
 }
 
-const makePageContent = data => {
-    if(data.length === 0)
-        return (
-            <Typography variant="h3">More to come...</Typography>
-        );
-    else 
-        return data.map((record, iter) => (
-            <CardLink 
-                {...record} 
-                key={`frontpage-item-${iter}`} 
-            />
-        ));
-}
-
-const Headline = () => {
+const Headline = props => {
+    const { redirectTo } = props;
     const classes = useStyles();
     const [pageState, setPageState] = useState({
         hasLoaded: false,
         pageData: []
     });
+
+    const makePageContent = data => {
+        if(data.length === 0)
+            return (
+                <Typography variant="h3">More to come...</Typography>
+            );
+        else 
+            return data.map((record, iter) => (
+                <CardLink 
+                    {...record} 
+                    key={`frontpage-item-${iter}`} 
+                    redirectTo={redirectTo}
+                />
+            ));
+    }
 
     if(!pageState.hasLoaded)
         getFrontPageData(setPageState);
@@ -66,28 +68,62 @@ const Headline = () => {
     let content = makePageContent(pageState.pageData);
 
     return (
-        <Grid item container className={classes.content}>
-            <Grid item container xs={12}>
-                <Grid item lg={1} xs={false} />
-                <HeadlineDisplay />
-                <Grid item lg={1} xs={false} />
+        <Grid 
+            item 
+            container 
+            className={classes.content} 
+        >
+            <Grid 
+                item 
+                container 
+                xs={12} 
+            >
+                <Grid 
+                    item 
+                    lg={1} 
+                    xs={false} 
+                />
+                <HeadlineDisplay redirectTo={redirectTo} />
+                <Grid 
+                    item 
+                    lg={1} 
+                    xs={false} 
+                />
             </Grid>
-            <Grid item xs={false} lg={2} />
-            <Grid container item xs={12} lg={8} justify="center">
+            <Grid 
+                item 
+                xs={false} 
+                lg={2} 
+            />
+            <Grid 
+                container 
+                item 
+                xs={12} 
+                lg={8} 
+                justify="center" 
+            >
                 <Grid 
                     container 
-                    item xs={12} 
+                    item 
+                    xs={12} 
                     spacing={1} 
                     justify="center" 
-                    alignItems="stretch"
+                    alignItems="stretch" 
                 >
-                    <Grid item xs={12}>
+                    <Grid 
+                        item 
+                        xs={12} 
+                    >
                         <Divider className={classes.divider} />
                     </Grid>
                     {content}
                 </Grid>
             </Grid>
-            <Grid item xs={false} lg={2} />
+            <Grid 
+                item 
+                xs={false} 
+                lg={2} 
+            />
         </Grid>
     );
 }

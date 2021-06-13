@@ -6,8 +6,8 @@ import {
     Typography,
     makeStyles,
     IconButton,
-    Hidden,
-    ButtonBase, 
+    Button, 
+    Hidden, 
     Menu, 
 } from '@material-ui/core';
 
@@ -41,16 +41,19 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        marginRight: 'auto',
+        height: '100%',
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1, 
     },
 })); 
 
-const Header = (props) => {
+const Header = props => {
     const classes = useStyles();
     const [linksMenu, setLinksMenu] = useState(null);
+
+    const { redirectTo } = props;
 
     const openLinks = (event) => 
         setLinksMenu(event.currentTarget);
@@ -69,25 +72,24 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
                 </Hidden>
-                <div  className={classes.title}>
-                    <ButtonBase>
-                        <Typography variant="h6">
-                            JSON's Node 
-                        </Typography>
-                    </ButtonBase>
-                </div>
+                <Button 
+                    className={classes.title}
+                    onClick={() => redirectTo('home')}
+                >
+                    <Typography variant="h6">
+                        JSON's Node 
+                    </Typography>
+                </Button>
                 <Hidden xsDown>
                     {profileLinks}
                 </Hidden>
                 <Hidden smUp>
-                    <ButtonBase>
-                    </ButtonBase>
-                    <IconButton onClick={openLinks}>
-                        <Typography variant="button">
-                            Links 
-                        </Typography>
-                        <KeyboardArrowDownIcon />
-                    </IconButton>
+                    <Button 
+                        onClick={openLinks}
+                        endIcon={<KeyboardArrowDownIcon />}
+                    >
+                        Links 
+                    </Button>
                     <Menu
                         anchorEl={linksMenu}
                         open={Boolean(linksMenu)}

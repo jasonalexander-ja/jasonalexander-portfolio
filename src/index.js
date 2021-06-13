@@ -5,15 +5,39 @@ import {
     ThemeProvider
 } from '@material-ui/core';
 
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+    Redirect, 
+} from 'react-router-dom'; 
+
 import App from './App';
 import theme from './Theme';
 
 const Main = () =>  {
 
     return (
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
+        <Router>
+            <Switch>
+                <Redirect 
+                    exact 
+                    from="/" 
+                    to="/home" 
+                />
+                <ThemeProvider theme={theme}>
+                    <Route 
+                        exact 
+                        path="/:page?/:postId?" 
+                        render={props => 
+                            <App 
+                                {...props}
+                            />
+                        }
+                    />
+                </ThemeProvider>
+            </Switch>
+        </Router>
     );
 }
 

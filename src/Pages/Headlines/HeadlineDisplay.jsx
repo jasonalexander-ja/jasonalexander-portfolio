@@ -58,7 +58,8 @@ const getHeadlineDisplayData = async (setState) => {
     });
 }
 
-const HeadlineDisplay = () => {
+const HeadlineDisplay = props => {
+    const { redirectTo } = props;
     const classes = useStyles();
     const [state, setState] = useState({ items: [], hasLoaded: false });
     if(!state.hasLoaded)
@@ -73,7 +74,10 @@ const HeadlineDisplay = () => {
                 image={item.bgImage} 
             >
             </CardMedia>
-            <CardActionArea className={classes.textArea}>
+            <CardActionArea 
+                className={classes.textArea}
+                onClick={() => redirectTo(`post/${item.link}`)}
+            >
                     <Grid container>
                         <Grid item lg={1} xs={false} />
                         <Grid item lg={10} xs={12}>

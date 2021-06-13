@@ -4,13 +4,13 @@
             "bgImage": "https://i.ibb.co/bFy6Fb2/NH-CPU.jpg",
             "title": "The Nottinghack Core",
             "desc": "Learn more about projects to design and build our own CPU cores at Nottingham Hackspace",
-            "link": ""
+            "link": "nottinghack-cpu"
         },
         {
             "bgImage": "https://i.ibb.co/ryyv0PQ/RPi-Nano.png",
             "title": "The New Platform in the Toolbox",
             "desc": "My thoughts and experience using the Raspberry Pi Foundation's howm grown microcontroller",
-            "link": ""
+            "link": "raspberrypi-nano"
         }
     ]
 }
