@@ -1,9 +1,54 @@
 {
     "list": [
         {
-            "index": 0,
-            "text": "",
-            "route": ""
+            "index": 1,
+            "text": "Home Page",
+            "code": "home"
+        },
+        {
+            "index": 2,
+            "text": "Hardware Embedded",
+            "code": "hardware-embedded"
+        },
+        {
+            "index": 3,
+            "text": "Web",
+            "code": "web"
+        },
+        {
+            "index": 4,
+            "text": "Rust",
+            "code": "rust"
+        },
+        {
+            "index": 5,
+            "text": "CPU Design",
+            "code": "cpu-design"
+        },
+        {
+            "index": 6,
+            "text": "Nottinghack",
+            "code": "nottinghack"
+        },
+        {
+            "index": 7,
+            "text": "Anvil-Lib",
+            "code": "anvil-lib"
+        },
+        {
+            "index": 8,
+            "text": "Norenth",
+            "code": "norenth"
+        },
+        {
+            "index": 9,
+            "text": "Contact",
+            "code": "contact"
+        },
+        {
+            "index": 10,
+            "text": "CV",
+            "code": "cv"
         }
     ]
 }

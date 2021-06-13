@@ -26,11 +26,12 @@ const useStyles = makeStyles(theme => ({
     cardAction: {
         padding: '0', 
     }
-}))
+}));
 
 const CardLink = (props) => {
     const classes = useStyles();
-    const { largeItem } = props;
+    const { largeItem, redirectTo, path } = props;
+    const clicked = () => redirectTo(`post/${path}`);
 
     return (
         <Grid 
@@ -46,6 +47,7 @@ const CardLink = (props) => {
                         className={classes.cardMedia}
                         image={props.imgSrc}
                         title={props.title}
+                        onClick={clicked}
                     />
                 </CardActionArea>
                 <CardContent className={classes.cardContent}>
@@ -69,6 +71,7 @@ const CardLink = (props) => {
                         fullWidth 
                         variant="contained" 
                         color="secondary"
+                        onClick={clicked}
                     >
                         Read
                     </Button>

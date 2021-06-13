@@ -1,10 +1,10 @@
 
 export const dev = true;
-export const sidebarHeight = 50;
+export const topNavHeight = 50;
 
 const ex = {
     dev,
-    sidebarHeight,
+    topNavHeight,
 };
 
 export default ex;
