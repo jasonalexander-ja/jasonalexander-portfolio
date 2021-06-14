@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import {
     makeStyles
 } from '@material-ui/core/styles';
+import { useMediaQuery } from '@material-ui/core';
 
 import { topNavHeight } from './helper.js';
 import NavTop from './Components/NavTop';
@@ -22,6 +23,15 @@ const useStyles = makeStyles(theme => ({
         }),
         marginTop: 0
     },
+    contentHeight1: {
+        minHeight: `calc(100vh - ${2 * theme.mixins.toolbar.minHeight}px)`,
+    },
+    contentHeight2: {
+        minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px)`,
+    },
+    contentHeight3: {
+        minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:600px)'].minHeight}px)`,
+    },
     contentShift: {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
@@ -35,6 +45,8 @@ const useStyles = makeStyles(theme => ({
 
 const Content = props => {
     const classes = useStyles();
+    const setContentHeight2 = useMediaQuery('@media (min-width:0px) and (orientation: landscape)');
+    const setContentHeight3 = useMediaQuery('@media (min-width:600px)');
     const { 
         drawOpen, 
         toggleDraw, 
@@ -43,6 +55,14 @@ const Content = props => {
         page,
         postId
     } = props;
+
+    let contentHeightClassName;
+    if(setContentHeight2)
+        contentHeightClassName = classes.contentHeight2;
+    else if(setContentHeight3)
+        contentHeightClassName = classes.contentHeight3;
+    else 
+        contentHeightClassName = classes.contentHeight1;
 
     const tabNameToIndex = name  => {
         for(let option in optionsList) {
@@ -82,7 +102,7 @@ const Content = props => {
                 optionsList={optionsList}
             />
             <main
-                className={clsx(classes.content, { 
+                className={clsx(classes.content, contentHeightClassName, { 
                     [classes.contentShift]: (drawOpen.open && drawOpen.anchor === 'top') 
                 })} 
             >

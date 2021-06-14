@@ -4,8 +4,8 @@ import {
     makeStyles, 
     AppBar,
     Toolbar,
-    IconButton,
-    Hidden
+    Hidden,
+    ButtonBase, 
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,7 +15,11 @@ const useStyles = makeStyles(theme => ({
         top: 'auto',
         bottom: 0,
         alignItems: 'center',
-    },
+    }, 
+    selectArea: {
+        heigh: "100%",
+        width: "100%"
+    }, 
 }));
 
 const Footer = props => {
@@ -24,11 +28,14 @@ const Footer = props => {
     return (
         <Hidden mdUp>
             <AppBar position="sticky" className={classes.footer}>
-                <Toolbar>
-                    <IconButton onClick={() => props.toggleDraw('bottom')}>
+                <ButtonBase 
+                    className={classes.selectArea} 
+                    onClick={() => props.toggleDraw('bottom')}
+                >
+                    <Toolbar>
                         <MenuIcon />
-                    </IconButton>
-                </Toolbar>
+                    </Toolbar>
+                </ButtonBase>
             </AppBar>
         </Hidden>
     );

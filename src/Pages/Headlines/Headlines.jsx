@@ -5,6 +5,7 @@ import {
     Grid, 
     makeStyles,
     Typography, 
+    CircularProgress, 
 } from '@material-ui/core'; 
 
 import HeadlineDisplay from './HeadlineDisplay';
@@ -65,7 +66,16 @@ const Headline = props => {
     if(!pageState.hasLoaded)
         getFrontPageData(setPageState);
 
-    let content = makePageContent(pageState.pageData);
+    let content = pageState.hasLoaded ? makePageContent(pageState.pageData) : (
+        <Grid 
+            item 
+            container 
+            xs={12} 
+            justify="center"
+        >
+            <CircularProgress color="secondary" />
+        </Grid>
+    );
 
     return (
         <Grid 
@@ -116,7 +126,7 @@ const Headline = props => {
                     >
                         <Divider className={classes.divider} />
                     </Grid>
-                    {content}
+                    {content} 
                 </Grid>
             </Grid>
             <Grid 
