@@ -11,6 +11,7 @@ import {
     Menu, 
     FormControlLabel,
     Switch, 
+    Fade, 
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -91,7 +92,7 @@ const Header = props => {
                     </Typography>
                 </Button>
                 <Hidden xsDown>
-                    <div hidden={!showThemeToggle}>
+                    <Fade in={showThemeToggle}>
                         <FormControlLabel
                             value={darkMode}
                             control={
@@ -105,7 +106,7 @@ const Header = props => {
                             label="Dark Mode"
                             labelPlacement="top"
                         />
-                    </div>
+                    </Fade>
                 </Hidden>
                 <Hidden xsDown>
                     {profileLinks}

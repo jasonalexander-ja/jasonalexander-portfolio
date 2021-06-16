@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import clsx from 'clsx';
 import {
-    makeStyles
+    makeStyles, 
+    useTheme, 
 } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 
@@ -21,42 +22,6 @@ const useStyles = makeStyles(theme => ({
         }),
         marginTop: 0
     },
-    contentHeight1: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar.minHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
-    },
-    contentHeight2: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px)`,
-    },
-    contentHeight3: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:600px)'].minHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar['@media (min-width:600px)'].minHeight}px)`,
-    },
-    contentHeightShifted1: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar.minHeight}px - ${topNavHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar.minHeight}px - ${topNavHeight}px)`,
-    },
-    contentHeightShifted2: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px - ${topNavHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight}px - ${topNavHeight}px)`,
-    },
-    contentHeightShifted3: {
-        [theme.breakpoints.down('sm')]: {
-            minHeight: `calc(100vh - ${2 * theme.mixins.toolbar['@media (min-width:600px)'].minHeight}px - ${topNavHeight}px)`,
-        },
-        minHeight: `calc(100vh - ${theme.mixins.toolbar['@media (min-width:600px)'].minHeight}px - ${topNavHeight}px)`,
-    },
     contentShift: {
         transition: theme.transitions.create('margin', {
             easing: theme.transitions.easing.easeOut,
@@ -70,8 +35,8 @@ const useStyles = makeStyles(theme => ({
 
 const Content = props => {
     const classes = useStyles();
-    const setContentHeight2 = useMediaQuery('@media (min-width:0px) and (orientation: landscape)');
-    const setContentHeight3 = useMediaQuery('@media (min-width:600px)');
+    const theme = useTheme();
+    const isSM = window.innerWidth < theme.breakpoints.values.md;
     
     const { 
         drawOpen, 
@@ -85,14 +50,7 @@ const Content = props => {
     } = props;
     const drawerShift = (drawOpen.open && drawOpen.anchor === 'top');
 
-    let contentHeightClassName;
-    if(setContentHeight2 && !setContentHeight3)
-        contentHeightClassName = drawerShift ? classes.contentHeightShifted2 : classes.contentHeight2;
-    else if(setContentHeight3)
-        contentHeightClassName = drawerShift ? classes.contentHeightShifted3 : classes.contentHeight3;
-    else 
-        contentHeightClassName = drawerShift ? classes.contentHeightShifted1 : classes.contentHeight1;
-
+    // The tab name URI, to the index of the tab as it appears in the list
     const tabNameToIndex = name  => {
         for(let option in optionsList) {
             let value = optionsList[option];
@@ -102,6 +60,7 @@ const Content = props => {
         return 0;
     }
     
+    // The index of the tab as it appears in the list, to the tab name URI
     const indexToTabName = index => {
         for(let option in optionsList) {
             let value = optionsList[option];
@@ -111,6 +70,7 @@ const Content = props => {
         return '';
     }
 
+    // Store the currently selected tab
     const [selectedTab, setSelectedTab] = useState(tabNameToIndex(page));
     const changeTab = (_event, tabNo) => { 
         redirectTo(indexToTabName(tabNo));
@@ -122,18 +82,39 @@ const Content = props => {
     if(pageTabNo !== selectedTab)
         setSelectedTab(pageTabNo);
 
+    // The height of the header/footer changes depending on the screen size/orientation
+    //  as defined in the theme, we need to account for that in the min size for the main content  
+    const minWidth0Landscape = useMediaQuery('@media (min-width:0px) and (orientation: landscape)');
+    const minWidth600 = useMediaQuery('@media (min-width:600px)');
+
+    let toolBarHeight = 0;
+    if(minWidth0Landscape && !minWidth600)
+        toolBarHeight = theme.mixins.toolbar['@media (min-width:0px) and (orientation: landscape)'].minHeight;
+    else if(minWidth600)
+        toolBarHeight = theme.mixins.toolbar['@media (min-width:600px)'].minHeight;
+    else 
+        toolBarHeight = theme.mixins.toolbar.minHeight;
+    // If we are on a small screen, then there will also be a footer 
+    toolBarHeight = isSM ? toolBarHeight * 2 : toolBarHeight;
+    // We also need to take into account the top menu when it's open 
+    toolBarHeight = drawerShift ? toolBarHeight + topNavHeight : toolBarHeight;
+
     return (
         <>
             <NavTop
                 open={drawOpen} 
+
                 selectedTab={selectedTab} 
                 changeTab={changeTab}
                 optionsList={optionsList}
             />
             <main
-                className={clsx(classes.content, contentHeightClassName, { 
+                className={clsx(classes.content, { 
                     [classes.contentShift]: drawerShift 
                 })} 
+                style={{
+                    minHeight: `calc(100vh - ${toolBarHeight}px)`
+                }}
             >
                 <Pages 
                     page={page} 
@@ -144,9 +125,11 @@ const Content = props => {
             <NavBottom
                 open={drawOpen} 
                 toggleDraw={toggleDraw} 
+
                 selectedTab={selectedTab} 
                 changeTab={changeTab}
                 optionsList={optionsList}
+
                 setDarkmode={setDarkmode}
                 darkMode={darkMode}
             />

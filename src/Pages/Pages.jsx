@@ -24,6 +24,7 @@ export const Pages = props => {
         postId 
     } = props;
 
+    // A dict of page components with their respective URI name 
     const pagesDict = {
         "home": (<Headlines redirectTo={redirectTo} />),
         "cv": (<CV redirectTo={redirectTo} />),
@@ -31,6 +32,7 @@ export const Pages = props => {
         "post": (<Posts postId={postId} />)
     };
 
+    // Get the selected page component, else show an error 
     let pageProp = pagesDict[page] ? 
         pagesDict[page] : 
         (
