@@ -25,7 +25,10 @@ const useStyles = makeStyles(theme => ({
     },
     cardAction: {
         padding: '0', 
-    }
+    },
+    readButton: {
+        borderRadius: `0px 0px ${theme.shape.borderRadius}px ${theme.shape.borderRadius}px`
+    },
 }));
 
 const CardLink = (props) => {
@@ -72,6 +75,7 @@ const CardLink = (props) => {
                         variant="contained" 
                         color="secondary"
                         onClick={clicked}
+                        className={classes.readButton}
                     >
                         Read
                     </Button>

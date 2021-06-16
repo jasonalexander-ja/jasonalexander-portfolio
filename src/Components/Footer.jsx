@@ -6,6 +6,7 @@ import {
     Toolbar,
     Hidden,
     ButtonBase, 
+    Grid, 
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -33,7 +34,11 @@ const Footer = props => {
                     onClick={() => props.toggleDraw('bottom')}
                 >
                     <Toolbar>
-                        <MenuIcon />
+                    <Grid container>
+                        <Grid xs={12} item></Grid>
+                        <Grid xs={12} item><MenuIcon /></Grid>
+                        <Grid xs={12} item></Grid>
+                    </Grid>
                     </Toolbar>
                 </ButtonBase>
             </AppBar>

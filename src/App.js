@@ -13,6 +13,7 @@ import Footer from './Components/Footer';
 import Content from './Content';
 
 import { dev } from './helper.js';
+import { getTheme } from './Theme';
 
 const getOptionsList = async setOptions => {
     let list = await fetch(`/${dev ? 'TestData/' : ''}OptionLists.json`)
@@ -35,7 +36,16 @@ const App = props => {
     } = props;
     const { params } = match;
     const { page, postId } = params;
-    const redirectTo = uri => history.push(`/${uri}`);
+
+    const [themeData, setThemeData] = useState({
+        darkMode: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        theme: getTheme((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light')
+    });
+    const setDarkmode = onOff => 
+        setThemeData({
+            darkMode: onOff,
+            theme: getTheme(onOff ? 'dark' : 'light')
+        });
 
     const [drawOpen, changeDraw] = useState({
         open:  !isSM, 
@@ -52,12 +62,16 @@ const App = props => {
     const toggleDraw = (anchor) => 
         changeDraw({anchor: anchor, open: !drawOpen.open}); 
 
+    const redirectTo = uri => history.push(`/${uri}`);
+
     return (
-        <ThemeProvider>
+        <ThemeProvider theme={themeData.theme}>
             <CssBaseline />
             <Header 
                 toggleDraw={toggleDraw}
                 redirectTo={redirectTo}
+                setDarkmode={setDarkmode}
+                darkMode={themeData.darkMode}
             />
             <Content 
                 drawOpen={drawOpen}
@@ -66,6 +80,8 @@ const App = props => {
                 page={page}
                 optionsList={options.optionsList}
                 postId={postId}
+                setDarkmode={setDarkmode}
+                darkMode={themeData.darkMode}
             />
             <Footer 
                 toggleDraw={toggleDraw} 

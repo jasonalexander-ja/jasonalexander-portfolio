@@ -4,6 +4,9 @@ import {
     Drawer, 
     Tabs,
     Tab,
+    FormControlLabel, 
+    Switch, 
+    Divider, 
 } from '@material-ui/core';
 import {
     makeStyles
@@ -18,6 +21,14 @@ const useStyles = makeStyles(theme => ({
     option: {
         maxWidth: 'none'
     }, 
+    darkModeButton: {
+        justifyContent: 'center',
+        margin: '5px',
+    },
+    divider: {
+        marginTop: 5,
+        marginBottom: 5,
+    }
 }));
 
 const NavBottom = (props) => {
@@ -27,7 +38,9 @@ const NavBottom = (props) => {
         toggleDraw, 
         changeTab, 
         selectedTab, 
-        optionsList
+        optionsList,
+        setDarkmode, 
+        darkMode, 
     } = props;
 
     const {
@@ -51,6 +64,7 @@ const NavBottom = (props) => {
             open={openFlag} 
             onClose={() => props.toggleDraw('bottom')} 
         > 
+            <Footer toggleDraw={toggleDraw} />
             <Tabs 
                 orientation='vertical' 
                 variant='scrollable' 
@@ -60,9 +74,24 @@ const NavBottom = (props) => {
                     flexContainerVertical: classes.optionsFlexContainer 
                 }} 
             > 
-                <Footer toggleDraw={toggleDraw} />
+                <div />
                 {tabs}
             </Tabs>
+            <Divider className={classes.divider} />
+            <FormControlLabel
+                className={classes.darkModeButton}
+                value={darkMode}
+                control={
+                    <Switch 
+                        color="secondary" 
+                        size="small" 
+                        onChange={event => setDarkmode(!darkMode)}
+                        checked={darkMode}
+                    />
+                }
+                label="Dark Mode"
+                labelPlacement="start"
+            />
         </Drawer>
     );
 }

@@ -2,10 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import {
-    ThemeProvider
-} from '@material-ui/core';
-
-import {
     BrowserRouter as Router,
     Route,
     Switch,
@@ -13,7 +9,6 @@ import {
 } from 'react-router-dom'; 
 
 import App from './App';
-import theme from './Theme';
 
 const Main = () =>  {
 
@@ -25,17 +20,15 @@ const Main = () =>  {
                     from="/" 
                     to="/home" 
                 />
-                <ThemeProvider theme={theme}>
-                    <Route 
-                        exact 
-                        path="/:page?/:postId?" 
-                        render={props => 
-                            <App 
-                                {...props}
-                            />
-                        }
-                    />
-                </ThemeProvider>
+                <Route 
+                    exact 
+                    path="/:page?/:postId?" 
+                    render={props => 
+                        <App 
+                            {...props}
+                        />
+                    }
+                />
             </Switch>
         </Router>
     );

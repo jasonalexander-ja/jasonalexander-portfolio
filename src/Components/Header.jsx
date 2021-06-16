@@ -9,6 +9,8 @@ import {
     Button, 
     Hidden, 
     Menu, 
+    FormControlLabel,
+    Switch, 
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -52,8 +54,13 @@ const useStyles = makeStyles(theme => ({
 const Header = props => {
     const classes = useStyles();
     const [linksMenu, setLinksMenu] = useState(null);
+    const [showThemeToggle, setShowThemeToggle] = useState(false);
 
-    const { redirectTo } = props;
+    const { 
+        redirectTo, 
+        setDarkmode, 
+        darkMode
+    } = props;
 
     const openLinks = (event) => 
         setLinksMenu(event.currentTarget);
@@ -63,7 +70,10 @@ const Header = props => {
 
     return (
         <AppBar position="sticky" className={classes.appBar}>
-            <Toolbar>
+            <Toolbar
+                onMouseOver={() => setShowThemeToggle(true)}
+                onMouseOut={() => setShowThemeToggle(false)}
+            >
                 <Hidden smDown>
                     <IconButton 
                         className={classes.menuButton}
@@ -80,6 +90,23 @@ const Header = props => {
                         JSON's Node 
                     </Typography>
                 </Button>
+                <Hidden xsDown>
+                    <div hidden={!showThemeToggle}>
+                        <FormControlLabel
+                            value={darkMode}
+                            control={
+                                <Switch 
+                                    color="secondary" 
+                                    size="small" 
+                                    onChange={event => setDarkmode(!darkMode)}
+                                    checked={darkMode}
+                                />
+                            }
+                            label="Dark Mode"
+                            labelPlacement="top"
+                        />
+                    </div>
+                </Hidden>
                 <Hidden xsDown>
                     {profileLinks}
                 </Hidden>

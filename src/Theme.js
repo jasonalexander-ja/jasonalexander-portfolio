@@ -7,7 +7,7 @@ import {
     teal, 
 } from '@material-ui/core/colors'; 
 
-const getTheme = mode => {
+export const getTheme = mode => {
     let darkMode = mode;
     if(!darkMode)
         darkMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ?
@@ -21,15 +21,8 @@ const getTheme = mode => {
     });
 }
 
-const darkTheme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ?
-    "dark" : "light";
+export const exp = {
+    getTheme,
+};
 
-const theme = createMuiTheme({
-    palette: {
-        type: darkTheme,
-        primary: blueGrey,
-        secondary: teal
-    }
-});
-
-export default theme; 
+export default exp; 
