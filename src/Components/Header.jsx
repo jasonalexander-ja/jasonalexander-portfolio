@@ -91,7 +91,7 @@ const Header = props => {
                         JSON's Node 
                     </Typography>
                 </Button>
-                <Hidden xsDown>
+                <Hidden smDown>
                     <Fade in={showThemeToggle}>
                         <FormControlLabel
                             value={darkMode}
