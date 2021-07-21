@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     }, 
     darkModeButton: {
         justifyContent: 'center',
-        margin: '5px',
+        margin: '8px',
     },
     divider: {
         marginTop: 5,
