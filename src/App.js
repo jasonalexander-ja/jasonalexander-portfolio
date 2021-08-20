@@ -43,10 +43,11 @@ const App = props => {
     const { params } = match;
     const { page, postId } = params;
 
+    const defaultDarkMode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     // Get a theme object, store it locally with the browser default dark mode
     const [themeData, setThemeData] = useState({
-        darkMode: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
-        theme: getTheme((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light')
+        darkMode: defaultDarkMode,
+        theme: getTheme(defaultDarkMode ? 'dark' : 'light')
     });
     // Allows us to toggle between dark and light mode at will  
     const setDarkmode = onOff => 
