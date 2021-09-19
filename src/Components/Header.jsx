@@ -14,6 +14,8 @@ import {
     Fade, 
 } from '@material-ui/core';
 
+import { useHistory } from 'react-router';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -56,9 +58,10 @@ const Header = props => {
     const classes = useStyles();
     const [linksMenu, setLinksMenu] = useState(null);
     const [showThemeToggle, setShowThemeToggle] = useState(false);
+    const history = useHistory();
+    const redirectTo = uri => history.push(`/${uri}`);
 
-    const { 
-        redirectTo, 
+    const {
         setDarkmode, 
         darkMode
     } = props;

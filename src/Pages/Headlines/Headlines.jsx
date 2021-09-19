@@ -8,6 +8,8 @@ import {
     CircularProgress, 
 } from '@material-ui/core'; 
 
+import { useHistory } from 'react-router';
+
 import HeadlineDisplay from './HeadlineDisplay';
 
 import CardLink from '../../Generic/CardLink';
@@ -40,8 +42,9 @@ const getFrontPageData = async stateSetter => {
     });
 }
 
-const Headline = props => {
-    const { redirectTo } = props;
+const Headline = () => {
+    const history = useHistory();
+    const redirectTo = uri => history.push(`/${uri}`);
     const classes = useStyles();
     const [pageState, setPageState] = useState({
         hasLoaded: false,

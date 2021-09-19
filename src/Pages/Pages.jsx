@@ -1,49 +1,42 @@
 import React from 'react';
 
-import { Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import {
     makeStyles
 } from '@material-ui/core/styles';
 
-import Headlines from './Headlines/Headlines'; 
-import CV from './CV/CV'; 
-import Error from './Error';
-import Posts from './Posts';
+import { Route } from 'react-router-dom'; 
 
-const useStyles = makeStyles(theme => ({
+import { menuOptions } from '../Common/menuOptions';
+
+const useStyles = makeStyles(() => ({
     content: {
         height: '100%'
     },
 }))
 
-export const Pages = props => {
-    const classes = useStyles()
-    const { 
-        page, 
-        redirectTo, 
-        postId 
-    } = props;
+export const Pages = () => {
+    const classes = useStyles();
 
-    // A dict of page components with their respective URI name 
-    const pagesDict = {
-        "home": (<Headlines redirectTo={redirectTo} />),
-        "cv": (<CV redirectTo={redirectTo} />),
-        "hardware-embedded": (<Typography>hardware-embedded</Typography>),
-        "post": (<Posts postId={postId} />)
-    };
+    let options = [...menuOptions];
+    options.sort((firstElem, secondElem) => firstElem.index - secondElem.index);
 
-    // Get the selected page component, else show an error 
-    let pageProp = pagesDict[page] ? 
-        pagesDict[page] : 
-        (
-            <Error />
-        );
+    console.log(options);
+
+    let routes = options.map(opt =>
+        <Route 
+            path={`/${opt.code}`}
+            component={opt.component}
+            key={`page-route=${opt.code}`}
+        />
+    );
 
     return (
         <Grid container className={classes.content}>
-            { pageProp }
+            {routes}
         </Grid>
     );
 }
 
 export default Pages;
+//

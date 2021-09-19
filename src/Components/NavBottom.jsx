@@ -12,6 +12,8 @@ import {
     makeStyles
 } from '@material-ui/core/styles';
 
+import { menuOptions } from '../Common/menuOptions'; 
+
 import Footer from './Footer';
 
 const useStyles = makeStyles(theme => ({
@@ -37,8 +39,7 @@ const NavBottom = (props) => {
     const { 
         toggleDraw, 
         changeTab, 
-        selectedTab, 
-        optionsList,
+        selectedTab,
         setDarkmode, 
         darkMode, 
     } = props;
@@ -48,7 +49,7 @@ const NavBottom = (props) => {
         anchor
     } = props.open;
 
-    const tabs = optionsList.map(opt => 
+    const tabs = menuOptions.map(opt => 
         <Tab 
             className={classes.option} 
             label={opt.text} 

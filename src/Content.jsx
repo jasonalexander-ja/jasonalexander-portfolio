@@ -7,6 +7,10 @@ import {
 } from '@material-ui/core/styles';
 import { useMediaQuery } from '@material-ui/core';
 
+import { useHistory } from 'react-router';
+
+import { menuOptions } from './Common/menuOptions';
+
 import { topNavHeight } from './helper.js';
 import NavTop from './Components/NavTop';
 import NavBottom from './Components/NavBottom';
@@ -36,54 +40,52 @@ const useStyles = makeStyles(theme => ({
 const Content = props => {
     const classes = useStyles();
     const theme = useTheme();
-    const isSM = window.innerWidth < theme.breakpoints.values.md;
+    const isSM = window.innerWidth < theme.breakpoints.values.md;    
+    const history = useHistory();
+    const redirectTo = uri => history.push(`/${uri}`);
     
     const { 
         drawOpen, 
-        toggleDraw, 
-        redirectTo, 
-        optionsList, 
-        page,
-        postId, 
+        toggleDraw,
         setDarkmode, 
         darkMode, 
     } = props;
     const drawerShift = (drawOpen.open && drawOpen.anchor === 'top');
-
-    // The tab name URI, to the index of the tab as it appears in the list
-    const tabNameToIndex = name  => {
-        for(let option in optionsList) {
-            let value = optionsList[option];
-            if(value.code === name)
-                return value.index;
-        }
-        return 0;
-    }
     
     // The index of the tab as it appears in the list, to the tab name URI
     const indexToTabName = index => {
-        for(let option in optionsList) {
-            let value = optionsList[option];
+        for(let option in menuOptions) {
+            let value = menuOptions[option];
             if(value.index === index)
                 return value.code;
         }
         return '';
-    }
+    };
+
+    const tabNameToIndex = tabName => {
+        for(let option in menuOptions) {
+            let value = menuOptions[option];
+            if(tabName.startsWith(value.code))
+                return value.index;
+        }
+        return 0;
+    };
 
     // Store the currently selected tab
-    const [selectedTab, setSelectedTab] = useState(tabNameToIndex(page));
+    const [selectedTab, setSelectedTab] = useState(1);
     const changeTab = (_event, tabNo) => { 
         redirectTo(indexToTabName(tabNo));
         setSelectedTab(tabNo); 
-    }
+    };
 
-    // The URI takes precedence over the UI 
-    let pageTabNo = tabNameToIndex(page);
-    if(pageTabNo !== selectedTab)
-        setSelectedTab(pageTabNo);
+    // The URI will take precedence over the actual selected tab 
+    let location = window.location.pathname.substring(1);
+    let tabName = indexToTabName(selectedTab);
+    if(!location.startsWith(tabName) && tabName)
+        setSelectedTab(tabNameToIndex(location));
 
     // The height of the header/footer changes depending on the screen size/orientation
-    //  as defined in the theme, we need to account for that in the min size for the main content  
+    // as defined in the theme, we need to account for that in the min size for the main content  
     const minWidth0Landscape = useMediaQuery('@media (min-width:0px) and (orientation: landscape)');
     const minWidth600 = useMediaQuery('@media (min-width:600px)');
 
@@ -102,11 +104,9 @@ const Content = props => {
     return (
         <>
             <NavTop
-                open={drawOpen} 
-
+                open={drawOpen}
                 selectedTab={selectedTab} 
                 changeTab={changeTab}
-                optionsList={optionsList}
             />
             <main
                 className={clsx(classes.content, { 
@@ -116,20 +116,13 @@ const Content = props => {
                     minHeight: `calc(100vh - ${toolBarHeight}px)`
                 }}
             >
-                <Pages 
-                    page={page} 
-                    redirectTo={redirectTo}
-                    postId={postId}
-                />
+                <Pages />
             </main>
             <NavBottom
                 open={drawOpen} 
                 toggleDraw={toggleDraw} 
-
                 selectedTab={selectedTab} 
                 changeTab={changeTab}
-                optionsList={optionsList}
-
                 setDarkmode={setDarkmode}
                 darkMode={darkMode}
             />

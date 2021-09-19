@@ -11,6 +11,8 @@ import {
     makeStyles
 } from '@material-ui/core/styles';
 
+import { menuOptions } from '../Common/menuOptions'; 
+
 import { topNavHeight } from '../helper.js';
 
 const useStyles = makeStyles(theme => ({
@@ -32,11 +34,10 @@ const NavTop = (props) => {
     const classes = useStyles();
     const { 
         changeTab, 
-        selectedTab, 
-        optionsList,  
+        selectedTab,
     } = props;
 
-    const tabs = optionsList.map(opt => 
+    const tabs = menuOptions.map(opt => 
         <Tab 
             label={opt.text}
             key={`tab-bottom-opt-${opt.code}`} 
